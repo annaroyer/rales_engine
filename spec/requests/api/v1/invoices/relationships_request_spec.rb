@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'Invoices Relationship API' do
   it 'sends a collection of associated transactions' do
-    invoice = create(:invoice).
-    create_list(:transaction, invoice: invoice)
+    invoice = create(:invoice)
+    create_list(:transaction, 3, invoice: invoice)
 
     get "/api/v1/invoices/#{invoice.id}/transactions"
 
