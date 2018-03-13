@@ -3,7 +3,7 @@ FactoryBot.define do
     name "MyString"
     description "MyText"
     unit_price 1
-    merchant nil
+    merchant
     created_at "MyString"
     updated_at "MyString"
   end
