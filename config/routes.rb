@@ -7,7 +7,14 @@ Rails.application.routes.draw do
         get 'find_all', to: 'search#index'
         get 'random', to: 'random#index'
       end
-      resources :merchants, only: [:index, :show], format: JSON
+      resources :merchants, only: [:index, :show]
+
+      namespace :transactions do
+        get 'find', to: 'search#show'
+        get 'find_all', to: 'search#index'
+        get 'random', to: 'random#index'
+      end
+      resources :transactions, only: [:index, :show]
     end
   end
 end
