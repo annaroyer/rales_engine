@@ -2,9 +2,7 @@ require 'rails_helper'
 
 describe 'Invoice Items API relationships' do
   before(:each) do
-    invoice = create(:invoice)
-    item = create(:item)
-    @invoice_item = create(:invoice_item, invoice: invoice, item: item)
+    @invoice_item = create(:invoice_item)
   end
 
   it 'sends the associated invoice' do
@@ -25,6 +23,3 @@ describe 'Invoice Items API relationships' do
     expect(item["id"]).to eq(@invoice_item.item_id)
   end
 end
-
-# GET /api/v1/invoice_items/:id/invoice returns the associated invoice
-# GET /api/v1/invoice_items/:id/item returns the associated item
