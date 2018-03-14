@@ -19,9 +19,16 @@ describe Merchant, type: :model do
     end
 
     describe ".most_revenue" do
-      xit "should return merchants with the most revenue" do
+      it "should return merchants with the most revenue" do
 
       expect(Merchant.most_revenue(2)).to eq([@merchant3, @merchant1])
+      end
+    end
+
+    describe ".most_items" do
+      it "should return merchants ranked by total items sold" do
+
+      expect(Merchant.most_items(2)).to eq([@merchant3, @merchant1])
       end
     end
   end
