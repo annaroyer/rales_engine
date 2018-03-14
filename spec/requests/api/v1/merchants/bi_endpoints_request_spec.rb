@@ -11,15 +11,29 @@ describe "Merchant BI Endpoints" do
     invoice4 = create(:invoice, merchant: @merchant3)
     create(:invoice_item, unit_price: 4000, quantity: 2, invoice: invoice1)
     create(:invoice_item, unit_price: 5000, quantity: 3, invoice: invoice3)
+    create(:invoice_item, unit_price: 6000, quantity: 2, invoice: invoice2)
   end
 
-  xit "sends the top x merchants ranked by top revenue" do
+  it "sends the top x merchants ranked by top revenue" do
     get "/api/v1/merchants/most_revenue?quantity=2"
 
     expect(response).to be_successful
 
     merchants = JSON.parse(response.body)
 
-    expect(merchants).to eq(@merchant3)
+    expect(merchants.first["id"]).to eq(@merchant3.id)
+    expect(merchants.first["name"]).to eq(@merchant3.name)
+    expect(merchants.count).to eq(2)
+  end
+
+  it "returns the top x merchants ranked by total number of items sold" do
+    get "/api/v1/merchants/most_items?quantity=3"
+
+    expect(response).to be_successful
+
+    merchants = JSON.parse(response.body)
+    expect(merchants.first["id"]).to eq(@merchant3.id)
+    expect(merchants.first["name"]).to eq(@merchant3.name)
+    expect(merchants.count).to eq(3)
   end
 end
