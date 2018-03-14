@@ -36,4 +36,13 @@ describe "Merchant BI Endpoints" do
     expect(merchants.first["name"]).to eq(@merchant3.name)
     expect(merchants.count).to eq(3)
   end
+
+  it "returns the total revenue for a merchant" do
+    get "/api/v1/merchants/#{@merchant1.id}/revenue"
+
+    expect(response).to be_successful
+
+    revenue = JSON.parse(response.body)
+    expect(revenue).to eq(@merchant3.revenue)
+  end
 end

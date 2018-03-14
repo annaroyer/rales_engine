@@ -2,6 +2,7 @@ class Merchant < ApplicationRecord
   has_many :items
   has_many :invoices
   has_many :invoice_items, through: :invoices
+  has_many :transactions, through: :invoices
   validates_presence_of :name
 
   def self.most_revenue(quantity)
@@ -19,7 +20,7 @@ class Merchant < ApplicationRecord
     .order('items_sold DESC')
     .limit(quantity)
   end
-  
+
   def revenue
     invoice_items
     .joins(:transactions)
