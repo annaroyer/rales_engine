@@ -21,9 +21,7 @@ describe "Customers Relationship Endpoints" do
   end
 
   it "returns a collection of associated transactions" do
-    id = create(:customer).id
-
-    get "/api/v1/customers/#{id}/transactions"
+    get "/api/v1/customers/#{@id}/transactions"
 
     transactions = JSON.parse(response.body)
 
