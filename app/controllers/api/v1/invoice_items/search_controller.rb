@@ -1,7 +1,7 @@
-class Api::V1::InvoiceItems::SearchController < ApplicationController
+class Api::V1::InvoiceItems::SearchController < SearchController
 
   def show
-    render json: InvoiceItem.find_by(search_params), :serializer => InvoiceItemSerializer
+    render json: InvoiceItem.find_by(search_params)
   end
 
   def index
@@ -10,6 +10,6 @@ class Api::V1::InvoiceItems::SearchController < ApplicationController
 
   private
     def search_params
-      params.permit(:id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at)
+      super.permit(:id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at)
     end
 end

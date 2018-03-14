@@ -8,7 +8,6 @@ class CreateItems < ActiveRecord::Migration[5.1]
       t.string :created_at
       t.string :updated_at
 
-      t.timestamps
     end
   end
 end
