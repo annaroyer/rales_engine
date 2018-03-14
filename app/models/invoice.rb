@@ -4,4 +4,8 @@ class Invoice < ApplicationRecord
   has_many :transactions
   has_many :invoice_items
   has_many :items, through: :invoice_items
+
+  def total_revenue
+    invoice_items.sum(:total_revenue)
+  end
 end
