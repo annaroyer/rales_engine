@@ -4,7 +4,7 @@ class Merchant < ApplicationRecord
   has_many :invoice_items, through: :invoices
   validates_presence_of :name
 
-  def revenue()
+  def revenue
     invoice_items
     .joins(:transactions)
     .merge(Transaction.success)
