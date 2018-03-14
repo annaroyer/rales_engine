@@ -1,7 +1,7 @@
-class Api::V1::Items::SearchController < ApplicationController
+class Api::V1::Items::SearchController < SearchController
 
   def show
-    render json: Item.find_by(search_params), :serializer => ItemSerializer
+    render json: Item.find_by(search_params)
   end
 
   def index
@@ -10,6 +10,6 @@ class Api::V1::Items::SearchController < ApplicationController
 
   private
     def search_params
-      params.permit(:id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at)
+      super.permit(:id, :name, :description, :merchant_id, :unit_price, :created_at, :updated_at)
     end
 end

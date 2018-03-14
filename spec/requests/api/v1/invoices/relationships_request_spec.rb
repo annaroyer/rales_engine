@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Invoices Relationship API' do
+describe 'Invoices API relationships' do
   before(:each) do
     @invoice = create(:invoice)
   end
