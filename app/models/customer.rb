@@ -22,4 +22,8 @@ class Customer < ApplicationRecord
     .order('count (transactions.id)DESC')
     .first
   end
+  
+  def favorite_merchant
+    merchants.most_invoices
+  end
 end

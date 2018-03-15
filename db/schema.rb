@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20180313031355) do
   create_table "customers", force: :cascade do |t|
     t.citext "first_name"
     t.citext "last_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "invoice_items", force: :cascade do |t|
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20180313031355) do
     t.bigint "invoice_id"
     t.integer "quantity"
     t.integer "unit_price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
     t.index ["item_id"], name: "index_invoice_items_on_item_id"
   end
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 20180313031355) do
     t.bigint "customer_id"
     t.bigint "merchant_id"
     t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["customer_id"], name: "index_invoices_on_customer_id"
     t.index ["merchant_id"], name: "index_invoices_on_merchant_id"
   end
@@ -49,15 +49,15 @@ ActiveRecord::Schema.define(version: 20180313031355) do
     t.text "description"
     t.integer "unit_price"
     t.bigint "merchant_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["merchant_id"], name: "index_items_on_merchant_id"
   end
 
   create_table "merchants", force: :cascade do |t|
     t.citext "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(version: 20180313031355) do
     t.string "credit_card_number"
     t.datetime "credit_card_expiration_date"
     t.citext "result"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["invoice_id"], name: "index_transactions_on_invoice_id"
   end
 
