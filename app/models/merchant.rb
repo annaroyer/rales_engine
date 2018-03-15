@@ -32,4 +32,13 @@ class Merchant < ApplicationRecord
   def revenue_dollars(params={})
     '%.2f' % (revenue(params).to_f / 100)
   end
+
+  def self.most_invoices
+    select('merchants.*, count(invoices.id) as count_all')
+    .joins(:invoices)
+    .joins(:transactions).merge(Transaction.success)
+    .order('count_all DESC')
+    .group(:id)
+    .first
+  end
 end
