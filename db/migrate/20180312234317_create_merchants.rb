@@ -2,10 +2,8 @@ class CreateMerchants < ActiveRecord::Migration[5.1]
   def change
     create_table :merchants do |t|
       t.string :name
-      t.string :created_at
-      t.string :updated_at
-
-      t.timestamps
+      t.datetime :created_at
+      t.datetime :updated_at
     end
   end
 end
