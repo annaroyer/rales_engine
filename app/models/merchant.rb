@@ -28,4 +28,8 @@ class Merchant < ApplicationRecord
     .merge(Transaction.success)
     .sum('unit_price * quantity')
   end
+
+  def revenue_dollars(params={})
+    '%.2f' % (revenue(params).to_f / 100)
+  end
 end
