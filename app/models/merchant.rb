@@ -21,8 +21,9 @@ class Merchant < ApplicationRecord
     .limit(quantity)
   end
 
-  def revenue
-    invoice_items
+  def revenue(params={})
+    invoices.where(params)
+    .joins(:invoice_items)
     .joins(:transactions)
     .merge(Transaction.success)
     .sum('unit_price * quantity')
