@@ -6,4 +6,8 @@ class InvoiceItem < ApplicationRecord
   def self.invoices_by_cost
     group(:invoice_id).order("sum(quantity * unit_price)")
   end
+
+  def self.quantity_by_item
+    group(:item_id).order('sum(quantity)')
+  end
 end
