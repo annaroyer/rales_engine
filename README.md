@@ -6,13 +6,13 @@ Visual representation of the databases available in this API:
 [Schema](http://ondras.zarovi.cz/sql/demo/?keyword=rales-engine)
 
 ## Table of Contents
--[Getting Started](#getting-started)
--[Prerequisites](#prerequisites)
--[Installing](#installing)
--[Running the Tests](#running-the-tests)
--[Test Details](#tests-details)
--[Built With](#built-with)
--[Authors](#authors)
+- [Getting Started](#getting-started)
+- [Prerequisites](#prerequisites)
+- [Installing](#installing)
+- [Running the Tests](#running-the-tests)
+- [Test Details](#tests-details)
+- [Built With](#built-with)
+- [Authors](#authors)
 
 ## Getting Started
 
