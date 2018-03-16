@@ -59,7 +59,7 @@ To run the test suite run rspec in your terminal:
 rspec
 ```
 
-## Tests Details
+### Tests Details
 
 Our test suite includes controller tests for every endpoint in the spec/api/v1 directory and tests for every model in the spec/models directory.
 
