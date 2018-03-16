@@ -5,10 +5,6 @@ class Invoice < ApplicationRecord
   has_many :invoice_items
   has_many :items, through: :invoice_items
 
-  def total_revenue
-    invoice_items.sum(:total_revenue)
-  end
-
   def self.best_day
     select('invoices.created_at, count(invoices.id) * invoice_items.quantity as items_sold')
     .joins(:invoice_items, :transactions)
