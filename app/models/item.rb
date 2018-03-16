@@ -9,6 +9,7 @@ class Item < ApplicationRecord
     .order('revenue DESC')
     .group(:id)
     .limit(quantity)
+  end
 
   def best_day
     invoices.best_day.created_at

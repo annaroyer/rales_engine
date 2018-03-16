@@ -14,7 +14,7 @@ describe "Merchant BI Endpoints" do
     create(:invoice_item, unit_price: 4000, quantity: 2, invoice: invoice1)
     create(:invoice_item, unit_price: 5000, quantity: 3, invoice: @invoice3)
     create(:invoice_item, unit_price: 6000, quantity: 2, invoice: invoice2)
-    create(:transaction, result: 'failed', invoice: invoice3)
+    create(:transaction, result: 'failed', invoice: @invoice3)
   end
 
   # GET /api/v1/merchants/most_revenue?quantity=x
@@ -71,20 +71,12 @@ describe "Merchant BI Endpoints" do
 
 # GET /api/v1/merchants/revenue?date=x
   it "returns the total revenue for date x across all merchants" do
-    created_date = "2012-03-16"
-    merchant = create(:merchant)
-    successful_1 = create(:transaction, result: 'success')
-    successful_2 = create(:transaction, result: 'success')
-    invoice_1 = create(:invoice, merchant: merchant, transactions: [successful_1], updated_at: created_date)
-    invoice_2 = create(:invoice, merchant: merchant, transactions: [successful_2], updated_at: created_date)
-    create_list(:invoice_item, 3, unit_price: 5000, quantity: 3, invoice: invoice_1)
-    create_list(:invoice_item, 2, unit_price: 6000, quantity: 2, invoice: invoice_2)
-
-    get "/api/v1/merchants/revenue?date=#{created_date}"
+    get "/api/v1/merchants/revenue?date=2012-03-16"
 
     expect(response).to be_successful
     merchant_result = JSON.parse(response.body)
-    expect(merchant_result).to eq(Merchant.total_revenue(created_date))
+    expect(merchant_result).to eq({"total_revenue" => "150.00"})
+  end
 
   it "returns the total revenue for a merchant" do
     get "/api/v1/merchants/#{@merchant1.id}/revenue"
@@ -97,7 +89,7 @@ describe "Merchant BI Endpoints" do
   end
 
   it "returns the total revenue for a merchant on a date" do
-    get "/api/v1/merchants/#{@merchant3.id}/revenue?date=2012-03-16"
+    get "/api/v1/merchants/#{@merchant3.id}/revenue?date=2012-03-27"
 
     expect(response).to be_successful
 
