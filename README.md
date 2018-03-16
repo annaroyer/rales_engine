@@ -2,6 +2,9 @@
 
 This application is a Ruby on Rails "Sales Engine" JSON API using sanitized Etsy data. 
 
+The project spec and information about the endpoints provided: 
+[Rales Engine Project Spec](http://backend.turing.io/module3/projects/rails_engine#technical-expectations)
+
 Visual representation of the databases available in this API:
 [Schema](http://ondras.zarovi.cz/sql/demo/?keyword=rales-engine)
 
@@ -38,7 +41,7 @@ bundle
 ```
 rake db:{create, migrate}
 ```
-* seed the database
+* seed the database by entering rake import_csv:load
 ```
 rake import_csv:load
 ```
@@ -58,6 +61,7 @@ rspec
 
 ## Tests Details
 
+Our test suite includes controller tests for every endpoint in the spec/api/v1 directory and tests for every model in the spec/models directory.
 
 ### Tested With
 
