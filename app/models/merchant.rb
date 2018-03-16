@@ -2,6 +2,7 @@ class Merchant < ApplicationRecord
   has_many :items
   has_many :invoices
   has_many :invoice_items, through: :invoices
+  has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
   validates_presence_of :name
 
@@ -19,6 +20,13 @@ class Merchant < ApplicationRecord
     .group(:id)
     .order('items_sold DESC')
     .limit(quantity)
+  end
+
+  def self.total_revenue(date)
+    where(invoices: date)
+    .joins(invoices: [:invoice_items, :transactions])
+    .merge(Transaction.success)
+    .sum("invoice_items.quantity * invoice_items.unit_price")
   end
 
   def revenue(params={})

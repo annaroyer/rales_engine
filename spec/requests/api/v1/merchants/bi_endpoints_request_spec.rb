@@ -14,8 +14,10 @@ describe "Merchant BI Endpoints" do
     create(:invoice_item, unit_price: 4000, quantity: 2, invoice: invoice1)
     create(:invoice_item, unit_price: 5000, quantity: 3, invoice: @invoice3)
     create(:invoice_item, unit_price: 6000, quantity: 2, invoice: invoice2)
+    create(:transaction, result: 'failed', invoice: @invoice3)
   end
 
+  # GET /api/v1/merchants/most_revenue?quantity=x
   it "sends the top x merchants ranked by top revenue" do
     get "/api/v1/merchants/most_revenue?quantity=2"
 
@@ -39,6 +41,43 @@ describe "Merchant BI Endpoints" do
     expect(merchants.count).to eq(3)
   end
 
+  it "returns a collection of customers which have pending invoices" do
+    merchant = create(:merchant)
+    customer = create(:customer)
+    invoice = create(:invoice, customer: customer, merchant: merchant)
+    transaction = create(:transaction, result: 'failed', invoice: invoice)
+
+    get "/api/v1/merchants/#{merchant.id}/customers_with_pending_invoices"
+
+    expect(response).to be_successful
+
+    result = JSON.parse(response.body)
+    expect(result.first["id"]).to eq(customer.id)
+  end
+
+  it "returns the customer who has conducted the most total number of successful transactions" do
+    merchant = create(:merchant)
+    customer = create(:customer)
+    success = create(:transaction, result: 'success')
+    create_list(:invoice, 5, customer: customer, merchant: merchant, transactions: [success] )
+
+    get "/api/v1/merchants/#{merchant.id}/favorite_customer"
+
+    expect(response).to be_successful
+
+    customer_result = JSON.parse(response.body)
+    expect(customer_result["id"]).to eq(customer.id)
+  end
+
+# GET /api/v1/merchants/revenue?date=x
+  it "returns the total revenue for date x across all merchants" do
+    get "/api/v1/merchants/revenue?date=2012-03-16"
+
+    expect(response).to be_successful
+    merchant_result = JSON.parse(response.body)
+    expect(merchant_result).to eq({"total_revenue" => "150.00"})
+  end
+
   it "returns the total revenue for a merchant" do
     get "/api/v1/merchants/#{@merchant1.id}/revenue"
 
@@ -50,7 +89,7 @@ describe "Merchant BI Endpoints" do
   end
 
   it "returns the total revenue for a merchant on a date" do
-    get "/api/v1/merchants/#{@merchant3.id}/revenue?date=2012-03-16"
+    get "/api/v1/merchants/#{@merchant3.id}/revenue?date=2012-03-27"
 
     expect(response).to be_successful
 
