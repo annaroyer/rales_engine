@@ -77,15 +77,15 @@ describe "Invoice Items API" do
   end
 
   it "can find all invoice_items by unit_price params" do
-    result = create(:invoice_item)
+    create(:invoice_item, unit_price: 1500)
 
-    get "/api/v1/invoice_items/find_all?unit_price=#{result.unit_price}"
+    get "/api/v1/invoice_items/find_all?unit_price=15.00"
 
     expect(response).to be_successful
 
     invoice_item = JSON.parse(response.body)
 
-    expect(invoice_item.first["unit_price"]).to eq(result.unit_price)
+    expect(invoice_item.first["unit_price"]).to eq("15.00")
   end
 
   it "can find all invoice_items by created at params" do

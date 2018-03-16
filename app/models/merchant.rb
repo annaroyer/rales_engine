@@ -16,7 +16,8 @@ class Merchant < ApplicationRecord
 
   def self.most_items(quantity)
     select('merchants.*, sum(invoice_items.quantity) as items_sold')
-    .joins(:invoice_items)
+    .joins(invoices: [:invoice_items, :transactions])
+    .merge(Transaction.success)
     .group(:id)
     .order('items_sold DESC')
     .limit(quantity)

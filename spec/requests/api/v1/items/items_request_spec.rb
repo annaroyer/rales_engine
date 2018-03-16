@@ -64,15 +64,15 @@ describe "Items API" do
   end
 
   it "can find one item by unit_price" do
-    result = create(:item)
+    create(:item, unit_price: 5000)
 
-    get "/api/v1/items/find?unit_price=#{result.unit_price}"
+    get "/api/v1/items/find?unit_price=50.00"
 
     expect(response).to be_successful
 
     item = JSON.parse(response.body)
 
-    expect(item["unit_price"]).to eq(result.unit_price)
+    expect(item["unit_price"]).to eq('50.00')
   end
 
   it "can find one item by time created at" do

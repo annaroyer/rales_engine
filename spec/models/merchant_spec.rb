@@ -16,6 +16,7 @@ describe Merchant, type: :model do
     create(:invoice_item, unit_price: 4000, quantity: 2, invoice: @invoice1)
     create(:invoice_item, unit_price: 5000, quantity: 3, invoice: invoice3)
     create(:transaction, invoice: @invoice1)
+    create(:transaction, invoice: invoice3)
   end
   context 'class methods' do
     describe ".most_revenue" do
@@ -28,7 +29,8 @@ describe Merchant, type: :model do
     describe ".most_items" do
       it "should return merchants ranked by total items sold" do
 
-      expect(Merchant.most_items(2)).to eq([@merchant3, @merchant1])
+      expect(Merchant.most_items(2).first).to eq(@merchant3)
+      expect(Merchant.most_items(2).last).to eq(@merchant1)
       end
     end
   end

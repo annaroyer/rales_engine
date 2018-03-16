@@ -11,13 +11,13 @@ describe "Merchant BI Endpoints" do
     invoice4 = create(:invoice, merchant: @merchant3)
     create(:transaction, invoice: @invoice3)
     create(:transaction, invoice: invoice1)
+    create(:transaction, invoice: invoice2)
     create(:invoice_item, unit_price: 4000, quantity: 2, invoice: invoice1)
     create(:invoice_item, unit_price: 5000, quantity: 3, invoice: @invoice3)
     create(:invoice_item, unit_price: 6000, quantity: 2, invoice: invoice2)
     create(:transaction, result: 'failed', invoice: @invoice3)
   end
 
-  # GET /api/v1/merchants/most_revenue?quantity=x
   it "sends the top x merchants ranked by top revenue" do
     get "/api/v1/merchants/most_revenue?quantity=2"
 
@@ -36,6 +36,7 @@ describe "Merchant BI Endpoints" do
     expect(response).to be_successful
 
     merchants = JSON.parse(response.body)
+
     expect(merchants.first["id"]).to eq(@merchant3.id)
     expect(merchants.first["name"]).to eq(@merchant3.name)
     expect(merchants.count).to eq(3)
@@ -69,7 +70,6 @@ describe "Merchant BI Endpoints" do
     expect(customer_result["id"]).to eq(customer.id)
   end
 
-# GET /api/v1/merchants/revenue?date=x
   it "returns the total revenue for date x across all merchants" do
     get "/api/v1/merchants/revenue?date=2012-03-16"
 
@@ -89,7 +89,7 @@ describe "Merchant BI Endpoints" do
   end
 
   it "returns the total revenue for a merchant on a date" do
-    get "/api/v1/merchants/#{@merchant3.id}/revenue?date=2012-03-27"
+    get "/api/v1/merchants/#{@merchant3.id}/revenue?date=2012-03-16"
 
     expect(response).to be_successful
 
