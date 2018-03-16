@@ -6,7 +6,7 @@ The project spec and information about the endpoints provided:
 [Rales Engine Project Spec](http://backend.turing.io/module3/projects/rails_engine#technical-expectations)
 
 Visual representation of the databases available in this API:
-[Schema](http://ondras.zarovi.cz/sql/demo/?keyword=rales-engine)
+[Rales Engine Schema](http://ondras.zarovi.cz/sql/demo/?keyword=rales-engine)
 
 ## Table of Contents
 - [Getting Started](#getting-started)
